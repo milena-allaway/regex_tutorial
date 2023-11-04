@@ -111,7 +111,69 @@ The OR operator is used to match one of two or more expressions, separated by th
 
 ### Character Classes
 
+Character classes are used to match characters from a specific set or by their literal selves. Sets are defined by square brackets []. Literal characters are preceded by a backslash \ and are exact matches (\. is a literal dot).  
+Meta-characters are characters that have a special meaning like \d (numbers 0-9), \w (word characters, alphanumeric including underscores, spaces, dots, or hyphens), \s (whitespace like spaces, tabs, and line breaks), and . (any character except line breaks).
+The regex in question uses the following character classes:  
+**\d** - matches any digit character (0-9). Here it indicates that the domain name can contain one or more numbers.
+```
+([\da-z\.-]+)
+```
+Also part of the character class above,  
+**a-z** matches any lowercase letter, and  
+**\.-** matches a dot or a hyphen.  
+Meaning that the domain name can contain one or more numbers, lowercase letters, dots and hyphens.
+
+Accepted examples:
+```
+example.com or example123.com or example-123.com or example.123.com
+```
+Not accepted examples:
+```
+Example.com or example_123.com or example!123.com
+```
+The top level domain is defined by the following character class:
+```
+[a-z\.]
+```
+**a-z** matches any lowercase letter, and  
+\. matches a literal dot.
+
+Accepted examples:
+```
+example.com or example.ca or example.co.uk
+```
+Not accepted examples:
+```
+example.123 or example.COM
+```
+The path is defined by the following character class:
+```
+[\/\w \.-]
+```
+**\/** matches a literal forward slash,  
+**\w** matches any word character (alphanumeric including underscores), also the class can include dots, and/or hyphens.  
+
+Accepted examples:
+```
+.com/example or .com/123_example or .com/e-x-a-m-p-l-e or .com/
+```
+The path can then be ended by an optional literal forward slash, or it can be omitted all together, as indicated by the following character class:
+```
+\/?
+```
+Accepted examples:
+```
+.com or .com/ or .com/example or .com/example/example or .com/example/example/
+```
+
 ### Flags
+Flags are used to perform different types of searches. The regex in question does not use any flags. The two most common flags are:  
+**g** - global search, searches for all matches rather than stopping after the first match.  
+**i** - case-insensitive search, searches for both uppercase and lowercase matches.
+Example:
+```
+var regex = /[a-z]+/g;
+```
 
 ### Grouping and Capturing
 
