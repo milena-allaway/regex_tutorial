@@ -30,6 +30,16 @@ The following regex defines a search pattern for a URL that can start with http:
 
 ### Anchors
 
+Anchors are used to match a position before or after characters. The regex in question uses the following anchors:
+^ - matches the beginning of the string, here it indicates that the URL can start with an optional protocol of http:// or https://
+```
+/^(https?:\/\/)?
+```
+$ - matches the end of the string, here it indicates that the URL can end with and optional forward slash
+```
+\/?$/
+```
+
 ### Quantifiers
 
 ### OR Operator
