@@ -190,4 +190,4 @@ var regex = /[a-z]+/g;
 ## Author
 
 Written by Milena Allaway, Full Stack Student at University of Toronto.
-[Link to my GitHub](https://github.com/milena-allaway)
+[Link to my Gist](https://gist.github.com/milena-allaway/cf4088e6bde67c0e8677f8496a693264)
