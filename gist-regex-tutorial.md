@@ -177,7 +177,7 @@ var regex = /[a-z]+/g;
 
 ### Grouping and Capturing
 
-Grouping and capturing is used to group multiple characters to perform a search on them. Groups are captured by putting parentheses around parts of the expression. Captured groups can be accessed later to perform tasks like search and replace. The regex in question uses the following groups:  
+Grouping and capturing is used to group multiple characters to perform a search on them. Groups are captured by putting parentheses around parts of the expression. Captured groups can be accessed later to perform tasks like search and replace, see [Back-references](#back-references) for more information. The regex in question uses the following groups:  
 ```
 (https?:\/\/)?
 ```
@@ -224,9 +224,36 @@ the regex will match the shortest possible path. Asterisks are greedy by default
 
 ### Boundaries
 
+Boundaries can be used to define where a search can start and/or end, and uses the \b meta-character. This regex does not use boundaries, but here is an example of how it can be used to match a URL that has the word "kitten" at the end:
+```
+/\bkitten$/
+```
+This regex will match the following:
+```
+http://example.com/kitten or example.com/path/kitten
+```
+
 ### Back-references
 
+Back-references are used to match the same text as previously matched by a capturing group. Capturing groups count from 1, and can be accessed by referring to their number preceded by a backslash, such as \1, \2, \3, etc. The regex in question does not use back-references. But here is an example of how it can be used to match the same text as previously matched by the domain group (the second captured group), note the \2 at the end of the regex:
+```
+/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\2$/
+```
+This regex will match the following:
+```
+http://example.com/pathexample/example or domain.com/path/domain
+```
+
 ### Look-ahead and Look-behind
+
+Look-ahead and look-behind are used to match text that is followed or preceded by a specific string. Look-ahead is defined by (?=string) and look-behind is defined by (?<=string). This regex does not use look-ahead or look-behind, but here is an example of how it can be used to match a URL that is followed by /cat:
+```
+/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?(?=\/cat)$/
+```
+Note that (?=\/cat) is added to the end of the regex. This regex will match the following:
+```
+http://example.com/cat or example.com/path/cat
+```
 
 ## Author
 
