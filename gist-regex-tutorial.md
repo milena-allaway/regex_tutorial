@@ -208,7 +208,19 @@ http://Example.com or example_123.com or example!123.com
 
 ### Bracket Expressions
 
+Bracket expressions are enclosed in square brackets [] and are used to match characters from a specific set, such as [a-z] which matches any lowercase letter. Bracket expressions are also defined as character classes. For more information and examples for this regex, see [Character Classes](#character-classes). 
+
 ### Greedy and Lazy Match
+
+Greedy and lazy match are used to match the longest or shortest possible part of a string. The regex in question does not use greedy or lazy match. But here is an example of how it can be used to match the shortest possible path:
+```
+/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*?)\/?$/
+```
+By adding a question mark after the asterisk in the path group,
+```
+([\/\w \.-]*?)
+``` 
+the regex will match the shortest possible path. Asterisks are greedy by default, meaning they will match the longest possible string. Adding a question mark after the asterisk makes it lazy, meaning it will match the shortest possible string.
 
 ### Boundaries
 
