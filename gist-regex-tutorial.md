@@ -254,15 +254,6 @@ Accepted examples:
 ```
 http://example.com/cat or example.com/path/cat
 ```
-Or, to match a URL that is preceded by /cat, this would never be used in practice, but here is an example:
-```
-/(?<=\/cat)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
-```
-Note that (?<=\/cat) is added to the beginning of the regex.  
-Accepted examples:
-```
-/cat/http://example.com or /cat/example.com/path
-```
 
 ## Author
 
