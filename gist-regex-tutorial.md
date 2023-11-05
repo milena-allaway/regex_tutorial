@@ -111,7 +111,7 @@ The OR operator is used to match one of two or more expressions, separated by th
 
 ### Character Classes
 
-Character classes are used to match characters from a specific set or by their literal selves. Sets are defined by square brackets []. Literal characters are preceded by a backslash \ and are exact matches (\. is a literal dot).  
+Character classes are used to match characters from a specific set or by their literal selves. Sets are defined by square brackets []. Literal characters are preceded by a backslash \ and are exact matches (\\. is a literal dot).  
 Meta-characters are characters that have a special meaning like \d (numbers 0-9), \w (word characters, alphanumeric including underscores, spaces, dots, or hyphens), \s (whitespace like spaces, tabs, and line breaks), and . (any character except line breaks).
 The regex in question uses the following character classes:  
 **\d** - matches any digit character (0-9). Here it indicates that the domain name can contain one or more numbers.
@@ -150,7 +150,7 @@ The path is defined by the following character class:
 ```
 [\/\w \.-]
 ```
-**\/** matches a literal forward slash,  
+**\\/** matches a literal forward slash,  
 **\w** matches any word character (alphanumeric including underscores), also the class can include dots, and/or hyphens.  
 
 Accepted examples:
@@ -176,6 +176,35 @@ var regex = /[a-z]+/g;
 ```
 
 ### Grouping and Capturing
+
+Grouping and capturing is used to group multiple characters to perform a search on them. Groups are captured by putting parentheses around parts of the expression. Captured groups can be accessed later to perform tasks like search and replace. The regex in question uses the following groups:  
+```
+(https?:\/\/)?
+```
+This group is used to capture the protocol, which can be either http:// or https://, or it can be omitted all together.  
+```
+([\da-z\.-]+)
+```
+This group is used to capture the domain name, which can contain one or more numbers, lowercase letters, dots and hyphens.  
+```
+([a-z\.]{2,6})
+```
+This group is used to capture the top-level domain, which can be a set of lowercase letters and/or dots that can be between 2 and 6 characters long.  
+```
+([\/\w \.-]*)*
+```
+This group is used to capture the path, which can be ended by an optional forward slash, or it can be omitted all together, and it can contain multiple occurences of forward slashes, word characters, dots, and hyphens. 
+
+Accepted examples:
+```
+http://example.com or https://example.com/example or example.ca/example/example
+```
+
+Not accepted examples:
+```
+http://Example.com or example_123.com or example!123.com
+```
+
 
 ### Bracket Expressions
 
