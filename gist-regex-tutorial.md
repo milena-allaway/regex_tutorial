@@ -57,7 +57,7 @@ Accepted examples:
 http://example.com or https://example.com or example.com
 ```
 
-**+** - matches the preceding character 1 or more times. Here it indicates that the domain name can contain one or more numbers, lowercase letters, dots and hyphens.
+**+** - matches the preceding character, or group of characters, 1 or more times. Here it indicates that the domain name can contain one or more numbers, lowercase letters, dots and hyphens.
 ```
 ([\da-z\.-]+)
 ```
@@ -112,7 +112,7 @@ The OR operator is used to match one of two or more expressions, separated by th
 ### Character Classes
 
 Character classes are used to match characters from a specific set or by their literal selves. Sets are defined by square brackets []. Literal characters are preceded by a backslash \ and are exact matches (\\. is a literal dot).  
-Meta-characters are characters that have a special meaning like \d (numbers 0-9), \w (word characters, alphanumeric including underscores, spaces, dots, or hyphens), \s (whitespace like spaces, tabs, and line breaks), and . (any character except line breaks).
+Meta-characters are characters that have a special meaning like \d (numbers 0-9), \w (word characters, alphanumeric characters including digits, underscores, spaces, dots, or hyphens), \s (whitespace like spaces, tabs, and line breaks), and . (any character except line breaks).
 The regex in question uses the following character classes:  
 **\d** - matches any digit character (0-9). Here it indicates that the domain name can contain one or more numbers.
 ```
@@ -205,7 +205,6 @@ Not accepted examples:
 http://Example.com or example_123.com or example!123.com
 ```
 
-
 ### Bracket Expressions
 
 Bracket expressions are enclosed in square brackets [] and are used to match characters from a specific set, such as [a-z] which matches any lowercase letter. Bracket expressions are also defined as character classes. For more information and examples for this regex, see [Character Classes](#character-classes). 
@@ -228,7 +227,7 @@ Boundaries can be used to define where a search can start and/or end, and uses t
 ```
 /\bkitten$/
 ```
-This regex will match the following:
+Accepted examples:
 ```
 http://example.com/kitten or example.com/path/kitten
 ```
@@ -239,7 +238,7 @@ Back-references are used to match the same text as previously matched by a captu
 ```
 /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\2$/
 ```
-This regex will match the following:
+Accepted examples:
 ```
 http://example.com/pathexample/example or domain.com/path/domain
 ```
@@ -250,9 +249,19 @@ Look-ahead and look-behind are used to match text that is followed or preceded b
 ```
 /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?(?=\/cat)$/
 ```
-Note that (?=\/cat) is added to the end of the regex. This regex will match the following:
+Note that (?=\/cat) is added to the end of the regex.  
+Accepted examples:
 ```
 http://example.com/cat or example.com/path/cat
+```
+Or, to match a URL that is preceded by /cat, this would never be used in practice, but here is an example:
+```
+/(?<=\/cat)^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
+```
+Note that (?<=\/cat) is added to the beginning of the regex.  
+Accepted examples:
+```
+/cat/http://example.com or /cat/example.com/path
 ```
 
 ## Author
